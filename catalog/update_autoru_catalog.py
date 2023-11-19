@@ -11,7 +11,7 @@ def update_autoru_catalog():
     tree = ET.parse(file_xml)
     root = tree.getroot()
     for mark in root.findall('mark'):
-        last_mark = Mark.objects.create(name=mark.attrib['name'])
+        last_mark = Mark.objects.create(name=mark.attrib['name'].replace(' ', '_'))
         for model in mark.findall('folder'):
             ModelAuto.objects.get_or_create(name=model.attrib['name'].split(', ')[0], mark_id=last_mark)
 
